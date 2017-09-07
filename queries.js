@@ -1,3 +1,15 @@
+
+var fs = require('fs'),
+    mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    Listing = require('./ListingSchema.js'),
+    config = require('./config');
+
+/* Connect to your database */
+
+mongoose.Promise = global.Promise;// replace old mongoose promise with a global promise
+mongoose.connect(config.db.uri, { useMongoClient: true });
+
 /* Fill out these functions using Mongoose queries*/
 
 var findLibraryWest = function() {
@@ -43,18 +55,18 @@ var updatePhelpsLab = function() {
 };
 var retrieveAllListings = function() {
 
-Listing.find({}, function (err ,data){
+Listing.find({}, function (err, data){
   if (err) throw err;
   console.log(data);
 });
   /*
     Retrieve all listings in the database, and log them to the console.
    */
-
-
 };
 
 findLibraryWest();
 removeCable();
 updatePhelpsLab();
 retrieveAllListings();
+
+//mongoose.disconnect();
